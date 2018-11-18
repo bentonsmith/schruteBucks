@@ -145,7 +145,7 @@ class Blockchain(object):
             print(f'{block}')
             print('\n----------------\n')
             # Check to see if hash of the block is correct
-            if block['previous_hash'] != last_block['hash']:
+            if block['previous_hash'] != self.hash(last_block):
                 return False
 
             # Check to see if the proofs are correct
@@ -167,7 +167,7 @@ class Blockchain(object):
         '''
 
         # Getting all of the other nodes
-        neighbors = self.nodes()
+        neighbors = self.nodes
 
         # Variable to store a new chain if one is found that is
         # longer than ours
@@ -180,7 +180,7 @@ class Blockchain(object):
         # longer than the current chain
         for node in neighbors:
             # Getting the node's full chain
-            response = requests.get(f'http//{node}/chain')
+            response = requests.get(f'http://{node}/chain')
 
             # Checking to see if the response was valid
             if response.status_code == 200:
